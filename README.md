@@ -6,7 +6,7 @@ https://messari.io/api/docs#operation/Get%20Asset%20Metrics
 
 ## Home page
 
-###Dynamic Elements
+### Dynamic Elements
 1. Total amount of currencies add up
 2. Currencies user owned
 3. Currency prices fetched from Messari OpenApi
