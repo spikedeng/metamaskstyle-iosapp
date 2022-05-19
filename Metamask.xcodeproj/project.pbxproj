@@ -14,6 +14,7 @@
 		FFCB50322834FEFA00236A45 /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50312834FEF900236A45 /* MenuItems.swift */; };
 		FFCB50362834FF5C00236A45 /* TabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50352834FF5C00236A45 /* TabItems.swift */; };
 		FFCB50382834FF8500236A45 /* Coins.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50372834FF8400236A45 /* Coins.swift */; };
+		FFCB503A2835387500236A45 /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50392835387500236A45 /* APIData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		FFCB50312834FEF900236A45 /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		FFCB50352834FF5C00236A45 /* TabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItems.swift; sourceTree = "<group>"; };
 		FFCB50372834FF8400236A45 /* Coins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coins.swift; sourceTree = "<group>"; };
+		FFCB50392835387500236A45 /* APIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				FFCB50372834FF8400236A45 /* Coins.swift */,
+				FFCB50392835387500236A45 /* APIData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFCB503A2835387500236A45 /* APIData.swift in Sources */,
 				FFCB50262834E46500236A45 /* ContentView.swift in Sources */,
 				FFCB50242834E46500236A45 /* MetamaskApp.swift in Sources */,
 				FFCB50362834FF5C00236A45 /* TabItems.swift in Sources */,

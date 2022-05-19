@@ -44,6 +44,7 @@ struct NFTView: View {
 }
 
 struct TOKENView: View {
+    @State var prices: Dictionary = [String: Float]()
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack{
@@ -60,7 +61,7 @@ struct TOKENView: View {
                                     .font(.title2)
                                     .fontWeight(.medium)
                                 
-                                Text(coin.dollar)
+                                Text("\(prices[coin.name] ?? 0)" )
                                     .foregroundColor(.gray)
                             }
                             Spacer()
@@ -70,10 +71,18 @@ struct TOKENView: View {
                         .padding(.horizontal)
                         Divider()
                     }
+                    .onAppear(){
+                        print("appear")
+                        API().getPrice(name: coin.name) { (metrics) in
+                            self.prices[coin.name] = metrics.price_usd
+                            print("prices", prices)
+                        }
+                    }
                 }
                 
             }
             .padding(.top, 12)
+            
         }
     }
 }
@@ -81,6 +90,7 @@ struct TOKENView: View {
 struct TabSwitchView: View {
     @Binding var selectedIndex: Int
     @Namespace var animation
+    
     var body: some View {
         VStack(spacing:0){
             HStack{
@@ -119,6 +129,7 @@ struct TabSwitchView: View {
             .tabViewStyle(
                 PageTabViewStyle(indexDisplayMode: .never))
         }
+        
     }
 }
 
