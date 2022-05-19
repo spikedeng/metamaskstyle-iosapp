@@ -1,4 +1,4 @@
-# metamaskstyle-iosapp
+# MetaMask App for SwiftUI Practice
 
 There are 3 Pages in this demo.
 Use Messari OpenAPI
