@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct CoinDetailsView: View {
-    var coinFromHomePage: Coin
+    @State var price: Float = 0
+    @State var coinFromHomePage: Coin
+    @Binding var walletCoins: [Coin]
+    var coinPrices: Dictionary = [String: Float]()
     var body: some View {
         VStack(spacing: 24) {
-            CoinDetailsNaviView(coin: coinFromHomePage)
-            CoinProfileView(coin: coinFromHomePage)
-            CoinOpsMenuView()
+            CoinDetailsNaviView(coin: coinFromHomePage )
+            CoinProfileView(price: price, coin: coinFromHomePage )
+            CoinOpsMenuView(coin: $coinFromHomePage, walletCoins: $walletCoins)
             Rectangle()
                 .fill(Color.gray.opacity(0.2))
                 .frame(height: 1.5)
@@ -23,26 +26,47 @@ struct CoinDetailsView: View {
                 .padding(.top, 50)
             Spacer()
         }
+        
+        .onAppear(){
+            print("coinDetails", coinPrices, coinFromHomePage)
+          guard let price1 = coinPrices[coinFromHomePage.name]
+            else {return}
+            price = price1
+        }
         .navigationBarHidden(true)
     }
 }
 
 struct CoinOpsMenuView: View {
+    @Binding var coin: Coin
+    @Binding var walletCoins: [Coin]
     var body: some View {
         HStack(spacing: 8) {
             ForEach(menuItems){ item in
-                VStack {
-                    Circle()
-                        .fill(Color.accentColor)
-                        .frame(width: 45, height: 45)
-                        .overlay(
-                            Image(systemName: item.image)
-                                .foregroundColor(.white)
-                        )
-                    
-                    Text(item.title)
-                        .foregroundColor(Color.accentColor)
-                        .fontWeight(.medium)
+                Button {
+                    if(item.title == "Buy") {
+                        coin.amount += 1
+                        for (index, _) in walletCoins.enumerated() {
+                            if(walletCoins[index].name == coin.name) {
+                                walletCoins[index].amount += 1
+                            }
+                        }
+                    }
+                
+                } label: {
+                    VStack {
+                        Circle()
+                            .fill(Color.accentColor)
+                            .frame(width: 45, height: 45)
+                            .overlay(
+                                Image(systemName: item.image)
+                                    .foregroundColor(.white)
+                            )
+                        
+                        Text(item.title)
+                            .foregroundColor(Color.accentColor)
+                            .fontWeight(.medium)
+                    }
                 }
                 .frame(width: 64)
             }
@@ -51,7 +75,9 @@ struct CoinOpsMenuView: View {
 }
 
 struct CoinProfileView: View {
+    var price: Float = 0
     var coin: Coin
+    
     var body: some View {
         VStack(spacing: 8) {
             Button {
@@ -67,10 +93,11 @@ struct CoinProfileView: View {
             Text(String(format: "%.2f \(coin.name)", coin.amount))
                 .font(.title)
             
-            Text("$100")
+            Text(String(format: "$ %.2f ", coin.amount * price))
                 .foregroundColor(.gray)
             
         }
+        
         
     }
 }

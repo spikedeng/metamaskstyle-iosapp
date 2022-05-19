@@ -9,13 +9,13 @@ import Foundation
 
 struct Coin: Identifiable {
     let id = UUID().uuidString
-    let amount: Double
+    var amount: Float
     let name: String
-    let dollar: String
+    let dollar: String?
 }
 
-let coins = [
+let defaultCoins = [
     Coin(amount: 3, name: "ETH", dollar: "$4,097.51"),
-    Coin(amount: 21, name: "BTC", dollar: "$4.17"),
-    Coin(amount: 16, name: "USDC", dollar: "$6.15"),
+    Coin(amount: 4, name: "BTC", dollar: "$4.17"),
+    Coin(amount: 2, name: "USDC", dollar: "$6.15"),
 ]

@@ -16,3 +16,8 @@ let tabItemConfigs = [
     TabItem(title: "TOKENS"),
     TabItem(title: "NFTs")
 ]
+
+let addCoinTabItems = [
+    TabItem(title: "Search"),
+    TabItem(title: "Custom Coin")
+]

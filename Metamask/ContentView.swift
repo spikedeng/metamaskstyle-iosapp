@@ -7,21 +7,32 @@
 
 import SwiftUI
 
+class WalletCoins: ObservableObject {
+    @Published var coins: [Coin]
+    init() {
+        self.coins = defaultCoins
+    }
+}
+
 struct ContentView: View {
-    @State var selectedIndex: Int = 0
+    
+    @State private var selectedIndex: Int = 0
+    @State private var owned: [Coin]?
+    @State private var wealth: Float = 0
+
     
     var body: some View {
         NavigationView{
             VStack(spacing: 24) {
                 NaviView()
-                ProfileView()
+                ProfileView(wealth: $wealth)
                 OpsMenuView()
-                TabSwitchView(selectedIndex: $selectedIndex)
+                TabSwitchView(selectedIndex: $selectedIndex, wealth: $wealth)
                 Spacer()
+                    .navigationBarHidden(true)
             }
-            .navigationBarHidden(true)
         }
-        
+//        .environmentObject(self.walletCoins)
     }
 }
 
@@ -48,12 +59,15 @@ struct NFTView: View {
 }
 
 struct TOKENView: View {
+    @State private var walletCoins: [Coin] = defaultCoins
     @State var prices: Dictionary = [String: Float]()
+    @Binding var wealth: Float
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack{
-                ForEach(coins) { coin in
-                    NavigationLink(destination: CoinDetailsView(coinFromHomePage: coin )){
+                ForEach(walletCoins) { coin in
+                    NavigationLink(destination: CoinDetailsView(coinFromHomePage: coin, walletCoins: $walletCoins, coinPrices: prices )){
                         VStack(alignment: .leading) {
                             HStack(spacing: 15) {
                                 Image(coin.name)
@@ -78,10 +92,21 @@ struct TOKENView: View {
                         }
                     }
                     .onAppear(){
-                        print("appear")
+                        print("tokenviewappear", walletCoins.count)
+                        wealth = 0
+                        
                         API().getPrice(name: coin.name) { (metrics) in
+                            if(self.prices[coin.name] == nil) {
+                                wealth += metrics.price_usd * coin.amount
+                            }
                             self.prices[coin.name] = metrics.price_usd
                             print("prices", prices)
+                        }
+                        for coin in walletCoins {
+                            guard let price = prices[coin.name] else {
+                                return
+                            }
+                            wealth += coin.amount * price
                         }
                     }
                 }
@@ -89,10 +114,10 @@ struct TOKENView: View {
                 Text("Don't see your coin")
                     .foregroundColor(Color.gray)
                     .padding(.top, 12)
-                NavigationLink(destination: AddCoinView(), label: {
-                Text("Add Coin")
+                NavigationLink(destination: AddCoinView(coins: $walletCoins), label: {
+                    Text("Add Coin")
                 })
-
+                
             }
             .padding(.top, 12)
             
@@ -102,6 +127,8 @@ struct TOKENView: View {
 
 struct TabSwitchView: View {
     @Binding var selectedIndex: Int
+    @Binding var wealth: Float
+//    @State var coins: [Coin]
     @Namespace var animation
     
     var body: some View {
@@ -110,7 +137,7 @@ struct TabSwitchView: View {
                 ForEach(0 ..< tabItemConfigs.count, id:\.self) { i in VStack {
                     Text(tabItemConfigs[i].title)
                         .foregroundColor(selectedIndex == i ? Color.accentColor : .gray)
-                        .fontWeight(.bold)
+                        .fontWeight(selectedIndex == i ? .bold : .light)
                         .frame(maxWidth: .infinity)
                     if selectedIndex == i {
                         Rectangle()
@@ -134,7 +161,7 @@ struct TabSwitchView: View {
                 .fill(Color.gray.opacity(0.2))
                 .frame(height: 1.5)
             TabView(selection: $selectedIndex) {
-                TOKENView()
+                TOKENView(wealth: $wealth)
                     .tag(0)
                 NFTView()
                     .tag(1)
@@ -171,6 +198,8 @@ struct OpsMenuView: View {
 }
 
 struct ProfileView: View {
+    @Binding var wealth: Float
+    
     var body: some View {
         VStack(spacing: 8) {
             Button {
@@ -187,7 +216,7 @@ struct ProfileView: View {
             Text("Spike Deng")
                 .font(.title)
             
-            Text("$100")
+            Text(String(format: "$ %.2f", locale: Locale(identifier: "en"), wealth))
                 .foregroundColor(.gray)
             
             Text("0xc944...0497")
