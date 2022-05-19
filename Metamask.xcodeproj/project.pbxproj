@@ -15,6 +15,8 @@
 		FFCB50362834FF5C00236A45 /* TabItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50352834FF5C00236A45 /* TabItems.swift */; };
 		FFCB50382834FF8500236A45 /* Coins.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50372834FF8400236A45 /* Coins.swift */; };
 		FFCB503A2835387500236A45 /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB50392835387500236A45 /* APIData.swift */; };
+		FFCB503D2835DB8200236A45 /* CoinDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB503C2835DB8200236A45 /* CoinDetailsView.swift */; };
+		FFCB503F2835EBFF00236A45 /* AddCoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCB503E2835EBFF00236A45 /* AddCoinView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		FFCB50352834FF5C00236A45 /* TabItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItems.swift; sourceTree = "<group>"; };
 		FFCB50372834FF8400236A45 /* Coins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coins.swift; sourceTree = "<group>"; };
 		FFCB50392835387500236A45 /* APIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
+		FFCB503C2835DB8200236A45 /* CoinDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailsView.swift; sourceTree = "<group>"; };
+		FFCB503E2835EBFF00236A45 /* AddCoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCoinView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +66,9 @@
 				FFCB50342834FF2500236A45 /* Configs */,
 				FFCB50332834FF0A00236A45 /* Models */,
 				FFCB50232834E46500236A45 /* MetamaskApp.swift */,
+				FFCB503C2835DB8200236A45 /* CoinDetailsView.swift */,
 				FFCB50252834E46500236A45 /* ContentView.swift */,
+				FFCB503E2835EBFF00236A45 /* AddCoinView.swift */,
 				FFCB50272834E46900236A45 /* Assets.xcassets */,
 				FFCB50292834E46900236A45 /* Preview Content */,
 			);
@@ -165,6 +171,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFCB503D2835DB8200236A45 /* CoinDetailsView.swift in Sources */,
+				FFCB503F2835EBFF00236A45 /* AddCoinView.swift in Sources */,
 				FFCB503A2835387500236A45 /* APIData.swift in Sources */,
 				FFCB50262834E46500236A45 /* ContentView.swift in Sources */,
 				FFCB50242834E46500236A45 /* MetamaskApp.swift in Sources */,

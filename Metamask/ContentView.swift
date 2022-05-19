@@ -11,13 +11,17 @@ struct ContentView: View {
     @State var selectedIndex: Int = 0
     
     var body: some View {
-        VStack(spacing: 24) {
-            NaviView()
-            ProfileView()
-            OpsMenuView()
-            TabSwitchView(selectedIndex: $selectedIndex)
-            Spacer()
+        NavigationView{
+            VStack(spacing: 24) {
+                NaviView()
+                ProfileView()
+                OpsMenuView()
+                TabSwitchView(selectedIndex: $selectedIndex)
+                Spacer()
+            }
+            .navigationBarHidden(true)
         }
+        
     }
 }
 
@@ -49,27 +53,29 @@ struct TOKENView: View {
         ScrollView(.vertical, showsIndicators: false){
             VStack{
                 ForEach(coins) { coin in
-                    VStack(alignment: .leading) {
-                        HStack(spacing: 15) {
-                            Image(coin.name)
-                                .resizable()
-                                .frame(width: 40, height:40)
-                                .clipShape(Circle())
-                            
-                            VStack(alignment: .leading) {
-                                Text("\(coin.amount) \(coin.name)")
-                                    .font(.title2)
-                                    .fontWeight(.medium)
+                    NavigationLink(destination: CoinDetailsView(coinFromHomePage: coin )){
+                        VStack(alignment: .leading) {
+                            HStack(spacing: 15) {
+                                Image(coin.name)
+                                    .resizable()
+                                    .frame(width: 40, height:40)
+                                    .clipShape(Circle())
                                 
-                                Text("\(prices[coin.name] ?? 0)" )
-                                    .foregroundColor(.gray)
+                                VStack(alignment: .leading) {
+                                    Text(String(format: "%.2f \(coin.name)", coin.amount))
+                                        .font(.title2)
+                                        .fontWeight(.medium)
+                                    
+                                    Text("\(prices[coin.name] ?? 0)" )
+                                        .foregroundColor(.gray)
+                                }
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
                             }
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
+                            .padding(.horizontal)
+                            Divider()
                         }
-                        .padding(.horizontal)
-                        Divider()
                     }
                     .onAppear(){
                         print("appear")
@@ -80,6 +86,13 @@ struct TOKENView: View {
                     }
                 }
                 
+                Text("Don't see your coin")
+                    .foregroundColor(Color.gray)
+                    .padding(.top, 12)
+                NavigationLink(destination: AddCoinView(), label: {
+                Text("Add Coin")
+                })
+
             }
             .padding(.top, 12)
             
@@ -204,7 +217,7 @@ struct NaviView: View {
                 
                 VStack(spacing: 4) {
                     Text("Wallet")
-                        .font(.title)
+                        .font(.title2)
                         .fontWeight(.light)
                     HStack {
                         Circle().fill(Color.green)
@@ -222,7 +235,7 @@ struct NaviView: View {
                     
                 } label: {
                     Image(systemName: "qrcode.viewfinder")
-                        .font(.title)
+                        .font(.title2)
                 }
                 
             }.padding(.horizontal)

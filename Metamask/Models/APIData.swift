@@ -35,7 +35,7 @@ class API {
         print("url", url)
         URLSession.shared.dataTask(with: url) { data, res, error in
             do {
-            let resData = try JSONDecoder().decode(APIRes.self, from: data!)
+            let resData = try JSONDecoder().decode(APIRes.self, from: data ?? Data())
                 DispatchQueue.main.async {
                     completion(resData.data.market_data)
                 }
